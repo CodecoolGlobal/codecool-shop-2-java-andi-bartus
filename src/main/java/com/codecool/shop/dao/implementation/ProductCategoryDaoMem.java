@@ -35,6 +35,7 @@ public class ProductCategoryDaoMem implements ProductCategoryDao {
         return data.stream().filter(t -> t.getId() == id).findFirst().orElse(null);
     }
 
+
     @Override
     public void remove(int id) {
         data.remove(find(id));
@@ -43,5 +44,13 @@ public class ProductCategoryDaoMem implements ProductCategoryDao {
     @Override
     public List<ProductCategory> getAll() {
         return data;
+    }
+
+    @Override
+    public int findIdByName(String name) {
+        ProductCategory category = data.stream()
+                .filter(t -> t.getName().equals(name))
+                .findFirst().orElse(null);
+        return category.getId();
     }
 }
