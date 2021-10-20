@@ -37,7 +37,6 @@ public class BasketServlet extends HttpServlet {
 
         switch (servletPath) {
             case "/basket":
-                //display basket arrayList field
                 break;
             case "/addToBasket":
 
@@ -46,7 +45,7 @@ public class BasketServlet extends HttpServlet {
 
                 //System.out.println(basket);
 
-                ArrayList<ArrayList<String>> datas = new ArrayList<>();
+                ArrayList<ArrayList<String>> filteredData = new ArrayList<>();
 
                 for (Product key : basket.keySet()
                 ) {
@@ -57,18 +56,12 @@ public class BasketServlet extends HttpServlet {
                     data.add(key.getPrice());
                     data.add(String.valueOf(key.getDefaultPrice()));
                     data.add(String.valueOf(basket.get(key)));
-                    datas.add(data);
+                    filteredData.add(data);
                 }
 
                 // System.out.println(datas);
 
-                JsonArray jsonArray1 = new Gson().toJsonTree(datas).getAsJsonArray();
-
-                PrintWriter out = response.getWriter();
-                response.setContentType("application/json");
-                response.setCharacterEncoding("UTF-8");
-                out.print(jsonArray1);
-                out.flush();
+                makeJsonResponse(response, filteredData);
 
 
                 break;
@@ -82,25 +75,17 @@ public class BasketServlet extends HttpServlet {
         }
     }
 
+    private void makeJsonResponse(HttpServletResponse response, ArrayList<ArrayList<String>> filteredData) throws IOException {
+        JsonArray jsonArray = new Gson().toJsonTree(filteredData).getAsJsonArray();
+
+        PrintWriter out = response.getWriter();
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        out.print(jsonArray);
+        out.flush();
+    }
+
     public Map<Product, Integer> getBasket() {
-        return this.basket;
+        return basket;
     }
-
-    public String getItemNumber() {
-
-
-        if (basket.isEmpty()) {
-            return "0";
-        } else {
-            int allNumber = 0;
-            for (Product key : basket.keySet()
-            ) {
-                allNumber += basket.get(key);
-            }
-            return String.valueOf(allNumber);
-        }
-
-    }
-
-
 }
