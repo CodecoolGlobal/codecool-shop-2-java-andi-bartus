@@ -19,27 +19,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet(urlPatterns = {"/category"})
-public class CategoryServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/checkout"})
+public class CheckoutServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-       String param = req.getParameter("param");
-
         ProductDao productDataStore = ProductDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
-        ProductService productService = new ProductService(productDataStore,productCategoryDataStore, supplierDataStore);
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        int categoryId = productCategoryDataStore.findIdByName(param);
+        //getAll needs testing
+        context.setVariable("products", productDataStore.getAll());
 
-
-        context.setVariable("category", productService.getProductCategory(categoryId));
-        context.setVariable("products", productService.getProductsForCategory(categoryId));
-
-        engine.process("product/category.html", context, resp.getWriter());
+        engine.process("product/checkout.html", context, resp.getWriter());
     }
 
 }
