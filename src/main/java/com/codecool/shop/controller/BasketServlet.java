@@ -30,20 +30,26 @@ public class BasketServlet extends HttpServlet {
         String servletPath = request.getServletPath();
         int productId = Integer.parseInt(request.getParameter("id"));
         Product product = productDaoMem.find(productId);
+        //System.out.println("first"+basket);
+        //System.out.println(productId);
+        // System.out.println(product);
+        // System.out.println(productId);
 
         switch (servletPath) {
             case "/basket":
                 break;
             case "/addToBasket":
 
-                basket.put(product, basket.getOrDefault(product, 0)+1);
+                basket.put(product, basket.getOrDefault(product, 0) + 1);
                 session.setAttribute("basket", basket);
-                System.out.println(basket);
+
+                //System.out.println(basket);
 
                 ArrayList<ArrayList<String>> filteredData = new ArrayList<>();
 
                 for (Product key : basket.keySet()
-                ) { ArrayList<String> data = new ArrayList<>();
+                ) {
+                    ArrayList<String> data = new ArrayList<>();
 
                     data.add(String.valueOf(key.getId()));
                     data.add(key.getName());
@@ -53,7 +59,7 @@ public class BasketServlet extends HttpServlet {
                     filteredData.add(data);
                 }
 
-               // System.out.println(datas);
+                // System.out.println(datas);
 
                 makeJsonResponse(response, filteredData);
 
@@ -62,8 +68,8 @@ public class BasketServlet extends HttpServlet {
             case "/removeFromBasket":
                 if (basket.get(product).equals(1)) {
                     basket.remove(product);
-                }else {
-                    basket.replace(product, basket.get(product), basket.get(product)-1);
+                } else {
+                    basket.replace(product, basket.get(product), basket.get(product) - 1);
                 }
                 session.setAttribute("basket", basket);
         }
