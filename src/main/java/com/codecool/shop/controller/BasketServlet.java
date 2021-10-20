@@ -2,12 +2,9 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.Product;
-import com.codecool.shop.model.ProductCategory;
-import com.codecool.shop.model.Supplier;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,10 +27,6 @@ public class BasketServlet extends HttpServlet {
         String servletPath = request.getServletPath();
         int productId = Integer.parseInt(request.getParameter("id"));
         Product product = productDaoMem.find(productId);
-        //System.out.println("first"+basket);
-        //System.out.println(productId);
-        // System.out.println(product);
-        // System.out.println(productId);
 
         switch (servletPath) {
             case "/basket":
@@ -42,8 +35,6 @@ public class BasketServlet extends HttpServlet {
 
                 basket.put(product, basket.getOrDefault(product, 0) + 1);
                 session.setAttribute("basket", basket);
-
-                //System.out.println(basket);
 
                 ArrayList<ArrayList<String>> filteredData = new ArrayList<>();
 
@@ -59,10 +50,7 @@ public class BasketServlet extends HttpServlet {
                     filteredData.add(data);
                 }
 
-                // System.out.println(datas);
-
                 makeJsonResponse(response, filteredData);
-
 
                 break;
             case "/removeFromBasket":
