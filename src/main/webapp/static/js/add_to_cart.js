@@ -1,11 +1,12 @@
 let addToCartBttns = document.querySelectorAll(".btn-success")
 
 for(let bttn of addToCartBttns){
-    bttn.addEventListener("click", getDataForBasketButton)
+    let id = bttn.dataset.id
+    bttn.addEventListener("click", sendData(id))
 }
 
-function getDataForBasketButton(){
-    fetch("/add_to_cart")
+function sendData(id){
+    fetch(`/addToBasket?id=${id}`)
         .then(response => response.json())
         .then(data => changeBasketBttn(data))
 }
