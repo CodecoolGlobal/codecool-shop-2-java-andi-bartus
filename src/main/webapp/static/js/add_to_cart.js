@@ -1,8 +1,16 @@
 let addToCartBttns = document.querySelectorAll(".btn-success")
 
 for(let bttn of addToCartBttns){
-    let id = bttn.dataset.id
-    bttn.addEventListener("click", sendData(id))
+    bttn.addEventListener("click", getData)
+}
+
+function getData(e){
+    console.log(e)
+    const bttnData = e.currentTarget.dataset
+    let id = bttnData.id
+    console.log(id)
+
+    sendData(id)
 }
 
 function sendData(id){
@@ -12,6 +20,7 @@ function sendData(id){
 }
 
 function changeBasketBttn(data){
+
     let allNumber = 0;
     for (const product of data) {
         allNumber += parseInt(product[4])
