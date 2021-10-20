@@ -64,3 +64,19 @@
 svg{
     margin-right: 5px;
 }
+
+.if{
+    width: 500px;
+    height: 500px;
+}
+
+.card{
+    width: 100%;
+    height: 100%;
+}
+
+.card-holder{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}

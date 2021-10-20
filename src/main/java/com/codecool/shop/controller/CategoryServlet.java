@@ -39,7 +39,7 @@ public class CategoryServlet extends HttpServlet {
         context.setVariable("category", productService.getProductCategory(categoryId));
         context.setVariable("products", productService.getProductsForCategory(categoryId));
 
-        engine.process("product/index.html", context, resp.getWriter());
+        engine.process("product/category.html", context, resp.getWriter());
     }
 
 }
