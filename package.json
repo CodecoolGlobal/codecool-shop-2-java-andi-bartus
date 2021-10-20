@@ -1,0 +1,7 @@
+{
+  "name": "codecool-shop-1-java-andi-bartus",
+  "version": "1.0.0",
+  "devDependencies": {
+    "nodemailer": "^6.7.0"
+  }
+}
