@@ -15,13 +15,16 @@ function displayModal(data) {
     } else {
         modal.innerHTML = "";
         let innerHtmlContent = "";
+        let totalPrice = 0;
         for (const modalElement of data) {
             const price = parseFloat(modalElement[3]) * parseInt(modalElement[4])
+            totalPrice += price
             const separator = "  ,   "
             innerHtmlContent = "⚫ " + modalElement[1] + separator + "QTY : " + modalElement[4] +
-                separator + "Total price : " + price.toString() + " USD"
+                separator + "Price : " + price.toString() + " USD"
             modal.innerHTML += innerHtmlContent;
             modal.innerHTML += "<br>";
         }
+        modal.innerHTML += "<br>Total Price: " + totalPrice + " USD"
     }
 }
