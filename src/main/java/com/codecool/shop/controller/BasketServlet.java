@@ -28,6 +28,8 @@ public class BasketServlet extends HttpServlet {
 
         int productId = Integer.parseInt(request.getParameter("id"));
         Product product = productDaoMem.find(productId);
+        System.out.println(productId);
+        System.out.println(product);
 
         switch (servletPath) {
             case "/basket":
@@ -44,12 +46,17 @@ public class BasketServlet extends HttpServlet {
                 break;
 
             case "/removeFromBasket":
-                if (basket.get(product).equals(1)) {
+
+                if (basket.get(product)<2) {
                     basket.remove(product);
                 } else {
                     basket.replace(product, basket.get(product), basket.get(product) - 1);
                 }
                 session.setAttribute("basket", basket);
+                ArrayList<ArrayList<String>> filteredData3 = makeProductList();
+                makeJsonResponse(response, filteredData3);
+                break;
+
         }
     }
 

@@ -27,6 +27,9 @@
     <!-- End of Bootstrap components -->
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+    <script src="/static/js/add_new_in_checkout.js" defer></script>
+
+   <!-- <script src="/static/js/remove_cart_in_checkout.js" defer></script> -->
 </head>
 
 <body>
@@ -49,8 +52,8 @@
 
 <div class="container">
     <div id="products" class="row">
-        <div class="col col-sm-12 col-md-6 col-lg-4" th:each="entry, stat : ${basket}">
-            <div class="checkou-card">
+        <div class="col col-sm-12 col-md-6 col-lg-4" th:each="entry, stat : ${basket}" >
+            <div class="card" th:id="'card' + ${entry.key.id}">
                 <!-- image -->
                 <img class="" src="http://placehold.it/400x250/000/fff"
                      th:attr="src='/static/img/product_' + ${entry.key.id} + '.jpg'" alt="picture of the product" />
@@ -68,9 +71,10 @@
                         <!-- add-remove buttons-->
                         <!-- javascript update method needed instead of magic number, links need session controller-->
 
-                        <button class="change-quantity-button" name="" id="add-to-cart" href="#">+</button>
+                        <button class="change-quantity-button_plus" th:data-id="${entry.key.id}">+</button>
                         <p class="product-quantity" th:id="${entry.key.id}" th:text="${entry.value}"></p>
-                        <button class="change-quantity-button" id="remove-from-cart" href="#">-</button>
+                        <button class="change-quantity-button_minus" th:data-id="${entry.key.id}">-</button>
+
                     </div>
                 </div>
             </div>
