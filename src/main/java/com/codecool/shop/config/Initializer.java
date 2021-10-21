@@ -25,11 +25,11 @@ public class Initializer implements ServletContextListener {
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
 
         //setting up a new supplier
-        Supplier student = new Supplier("student", "Digital content and services");
+        Supplier student = new Supplier("student", "Random stuffs from students");
         supplierDataStore.add(student);
-        Supplier mentor = new Supplier("mentor", "Computers");
+        Supplier mentor = new Supplier("mentor", "Random stuffs from mentors");
         supplierDataStore.add(mentor);
-        Supplier codecool = new Supplier("codecool", "Computers");
+        Supplier codecool = new Supplier("codecool", "Random stuff from CodeCool");
         supplierDataStore.add(codecool);
 
         //setting up a new product category
@@ -45,8 +45,19 @@ public class Initializer implements ServletContextListener {
 
 
         //setting up products and printing it
-        productDataStore.add(new Product("Amazon Fire", new BigDecimal("49.9"), "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", fashion, student));
-        productDataStore.add(new Product("Lenovo IdeaPad Miix 700", new BigDecimal("479"), "USD", "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports. Adjustable kickstand.", fashion, mentor));
-        productDataStore.add(new Product("Amazon Fire HD 8", new BigDecimal("89"), "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", electronics, codecool));
+        productDataStore.add(new Product("Pilgrim Destination", new BigDecimal("49.9"), "USD", "Visited by people time to time", home, codecool));
+        productDataStore.add(new Product("Peti's Backpack in warm autumn color", new BigDecimal("479"), "USD", "Be like Peti, be a star with this mustard yellow bckpack.", fashion, student));
+        productDataStore.add(new Product("Krici's Laptop", new BigDecimal("89"), "USD", "Krici's laptop in not such a bad condition", electronics, student));
+        productDataStore.add(new Product("Motivation Poster", new BigDecimal("10"), "USD", "Keep distance keep smiling", home, codecool));
+        productDataStore.add(new Product("Dinner-set", new BigDecimal("130"), "USD", "Welcome your friend with this eclectic set", home, codecool));
+        productDataStore.add(new Product("ArtDeco Sculpture-set 3pcs", new BigDecimal("150"), "USD", "Pure art", home, codecool));
+        productDataStore.add(new Product("Road Racer", new BigDecimal("1000"), "USD", "Healthy is the new sexy", sport, codecool));
+        productDataStore.add(new Product("Mug Top with Rubber Ring", new BigDecimal("12"), "USD", "This is it", home, codecool));
+        productDataStore.add(new Product("Black Sabbath Poster for Collectors", new BigDecimal("2000"), "USD", "Metal for life", home, codecool));
+        productDataStore.add(new Product("The Fountain", new BigDecimal("20000"), "USD", "Fight for it", home, student));
+        productDataStore.add(new Product("Two Wheels Vehicle", new BigDecimal("30"), "USD", "We dont't know who owns this", sport, mentor));
+        productDataStore.add(new Product("Money Pit", new BigDecimal("10"), "USD", "I had money once", home, codecool));
+        productDataStore.add(new Product("Always Taken Armchair", new BigDecimal("150"), "USD", "With Bonus sitting mentors", home, codecool));
+        productDataStore.add(new Product("Game Machine", new BigDecimal("140"), "USD", "For game or just for pushing the Buttons", home, codecool));
     }
 }
