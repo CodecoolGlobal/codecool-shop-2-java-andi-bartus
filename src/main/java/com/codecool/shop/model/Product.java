@@ -10,12 +10,18 @@ public class Product extends BaseModel {
     private ProductCategory productCategory;
     private Supplier supplier;
 
+    private final String stringPriceAndCurrency;
 
     public Product(String name, BigDecimal defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier) {
         super(name, description);
         this.setPrice(defaultPrice, currencyString);
         this.setSupplier(supplier);
         this.setProductCategory(productCategory);
+        this.stringPriceAndCurrency = this.getPrice();
+    }
+
+    public String getStringPriceAndCurrency() {
+        return stringPriceAndCurrency;
     }
 
     public BigDecimal getDefaultPrice() {
@@ -35,7 +41,7 @@ public class Product extends BaseModel {
     }
 
     public String getPrice() {
-        return String.valueOf(this.defaultPrice) + " " + this.defaultCurrency.toString();
+        return this.defaultPrice + " " + this.defaultCurrency.toString();
     }
 
     public void setPrice(BigDecimal price, String currency) {

@@ -49,19 +49,19 @@
 
 <div class="container">
     <div id="products" class="row">
-        <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
+        <div class="col col-sm-12 col-md-6 col-lg-4" th:each="entry, stat : ${basket}">
             <div class="checkou-card">
                 <!-- image -->
                 <img class="" src="http://placehold.it/400x250/000/fff"
-                     th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="picture of the product" />
+                     th:attr="src='/static/img/product_' + ${entry.key.id} + '.jpg'" alt="picture of the product" />
 
                 <div class="card-header">
-                    <h4 class="card-title" th:text="${prod.name}">Product name</h4>
+                    <h4 class="card-title" th:text="${entry.key.name}">Product name</h4>
                 </div>
                 <div class="card-body">
                     <div class="card-text">
                         <!--quantity from session needed --->
-                        <p class="lead" th:text="${prod.getPrice()}"></p>
+                        <p class="lead" th:text="${entry.key.stringPriceAndCurrency}"></p>
                     </div>
                     <div class="card-buttons">
 
@@ -69,7 +69,7 @@
                         <!-- javascript update method needed instead of magic number, links need session controller-->
 
                         <button class="change-quantity-button" name="" id="add-to-cart" href="#">+</button>
-                        <p class="product-quantity" th:id="${prod.getId()}" th:text="1"></p>
+                        <p class="product-quantity" th:id="${entry.key.id}" th:text="${entry.value}"></p>
                         <button class="change-quantity-button" id="remove-from-cart" href="#">-</button>
                     </div>
                 </div>
