@@ -45,7 +45,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Payment</button>
+                <a href="/checkout"><button type="button" class="btn btn-primary">Payment</button></a>
             </div>
         </div>
     </div>
@@ -63,9 +63,6 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <!-- <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li> -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarCategory" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Categories
@@ -75,8 +72,6 @@
                         <li><a class="dropdown-item" href="/category?param=fashion">Fashion</a></li>
                         <li><a class="dropdown-item" href="/category?param=home">Home</a></li>
                         <li><a class="dropdown-item" href="/category?param=sport">Sport</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">SALE</a></li>
                     </ul>
                 </li>
 
@@ -89,14 +84,8 @@
                         <li><a class="dropdown-item" href="supplier?param=student">Students</a></li>
                         <li><a class="dropdown-item" href="supplier?param=mentor">Mentors</a></li>
                         <li><a class="dropdown-item" href="supplier?param=codecool">CodeCool</a></li>
-                        <li><hr class="dropdown-divider"></li>
-
                     </ul>
                 </li>
-
-             <!--   <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li> -->
             </ul>
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -133,10 +122,10 @@
                         </div>
                         <div class="card-body">
                             <div class="card-text">
-                                <p class="lead" th:text="${product.getPrice()}">100 USD</p>
+                                <p class="lead" th:text="${product.getPrice()}"></p>
                             </div>
                             <div class="card-text">
-                                <a href="#" class="btn btn-success" th:data-id="${product.getId()}">Add to cart</a>
+                                <a class="btn btn-success" th:data-id="${product.getId()}">Add to cart</a>
                             </div>
                         </div>
                     </div>
@@ -144,7 +133,6 @@
             </div>
         </div>
     </div>
-
 </div>
 
 <div th:replace="footer.html :: copy"></div>

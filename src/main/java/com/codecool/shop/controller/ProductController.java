@@ -6,6 +6,7 @@ import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.model.Product;
 import com.codecool.shop.service.ProductService;
 import com.codecool.shop.config.TemplateEngineUtil;
 import org.thymeleaf.TemplateEngine;
@@ -16,15 +17,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 @WebServlet(urlPatterns = {"/"})
 public class ProductController extends HttpServlet {
+    private Map<Product, Integer> basket = new HashMap<>();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
 
@@ -36,5 +40,14 @@ public class ProductController extends HttpServlet {
 
         engine.process("product/index.html", context, resp.getWriter());
     }
+    protected void getCartItemsCount(HttpServletRequest req){
+        HttpSession session = req.getSession();
+        if (session.getAttribute("basket")!=null){
+            System.out.println(session.getAttribute("basket").toString());
+            basket = (Map<Product, Integer>) session.getAttribute("basket");
+            System.out.println(basket.keySet());
+            System.out.println(basket.get((Product) basket.keySet().toArray()[0]));
+        }
 
+    }
 }
