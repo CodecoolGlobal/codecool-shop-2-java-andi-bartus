@@ -41,5 +41,14 @@ function changeBasketBttn(data, id, value){
     if(number !== null){
         number.innerHTML = (parseInt(number.innerHTML) + value).toString()
     }
-    console.log(data)
+
+    const totalPrice = document.querySelector(".totalprice")
+    console.log(totalPrice)
+    let totalPriceValue = 0;
+    for (const product of data) {
+        const price = parseFloat(product[3]) * parseInt(product[4])
+        totalPriceValue += price
+    }
+    totalPrice.innerHTML = "Total price: " + totalPriceValue + " USD"
 }
+
