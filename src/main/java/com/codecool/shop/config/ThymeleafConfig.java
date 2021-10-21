@@ -37,5 +37,4 @@ public class ThymeleafConfig implements ServletContextListener {
         resolver.setTemplateMode(TemplateMode.HTML);
         return resolver;
     }
-
 }

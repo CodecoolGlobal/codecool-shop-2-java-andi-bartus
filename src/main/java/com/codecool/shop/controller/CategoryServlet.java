@@ -19,9 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
-
 
 @WebServlet(urlPatterns = {"/category"})
 public class CategoryServlet extends HttpServlet {
@@ -46,7 +44,6 @@ public class CategoryServlet extends HttpServlet {
         engine.process("product/category.html", context, resp.getWriter());
     }
 
-
     protected int getCartItemCount(HttpServletRequest req){
         Map<Product, Integer> basket;
         HttpSession session = req.getSession();
@@ -59,11 +56,8 @@ public class CategoryServlet extends HttpServlet {
             for (Object product : keys) {
                 itemCount += basket.get((Product)product);
             }
-
             return itemCount;
         }
         return 0;
-
     }
-
 }

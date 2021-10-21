@@ -55,14 +55,15 @@
 
 <div class="jumbotron text-center fill">
     <img src="static/img/saleCodecoolShop.png" alt="" />
-
 </div>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">CodeBootSale</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item dropdown">
@@ -112,6 +113,7 @@
                     <h4 class="card-title" th:text="${product.name}">Product name</h4>
                     <p class="card-text" th:text="${product.description}">Product description... </p>
                 </div>
+
                 <div class="card-body">
                     <div class="card-text">
                         <p class="lead" th:text="${product.getPrice()}"></p>

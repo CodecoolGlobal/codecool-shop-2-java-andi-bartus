@@ -21,15 +21,12 @@ public class BasketServlet extends HttpServlet {
     private Map<Product, Integer> basket = new HashMap<>();
     private final ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
 
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         String servletPath = request.getServletPath();
 
         int productId = Integer.parseInt(request.getParameter("id"));
         Product product = productDaoMem.find(productId);
-        System.out.println(productId);
-        System.out.println(product);
 
         switch (servletPath) {
             case "/basket":
@@ -38,7 +35,6 @@ public class BasketServlet extends HttpServlet {
                 break;
 
             case "/addToBasket":
-
                 basket.put(product, basket.getOrDefault(product, 0) + 1);
                 session.setAttribute("basket", basket);
                 ArrayList<ArrayList<String>> filteredData = makeProductList();
@@ -46,7 +42,6 @@ public class BasketServlet extends HttpServlet {
                 break;
 
             case "/removeFromBasket":
-
                 if (basket.get(product)<2) {
                     basket.remove(product);
                 } else {
@@ -56,7 +51,6 @@ public class BasketServlet extends HttpServlet {
                 ArrayList<ArrayList<String>> filteredData3 = makeProductList();
                 makeJsonResponse(response, filteredData3);
                 break;
-
         }
     }
 
@@ -87,6 +81,7 @@ public class BasketServlet extends HttpServlet {
 
         return filteredData;
     }
+
     public Map<Product, Integer> getBasket() {
         return basket;
     }

@@ -22,7 +22,7 @@
     integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
     <!-- Latest compiled and minified CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
+    <link href=" https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <!-- End of Bootstrap components -->
 
@@ -30,8 +30,8 @@
     <script src="/static/js/add_to_cart.js" defer></script>
     <script src="/static/js/cart_modal.js" defer></script>
 </head>
-<body>
 
+<body>
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -53,8 +53,8 @@
 
 <div class="jumbotron text-center fill">
     <img src="static/img/codecoolshop1.png" alt="" />
-
 </div>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">CodeBootSale</a>
@@ -99,7 +99,6 @@
 </nav>
 
 <div class="container">
-
     <div class="category-iter" th:each="category,categStat: ${categories}">
         <div class="card">
             <strong th:text="${category.getName()}">Category Title</strong>

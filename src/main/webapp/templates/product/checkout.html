@@ -33,17 +33,14 @@
 </head>
 
 <body>
-
 <div class="jumbotron text-center fill">
     <img src="static/img/musterCard.png" alt="" />
-
 </div>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">CodeBootSale</a>
     </div>
-
 </nav>
 
 <div class="container">
@@ -53,7 +50,6 @@
                 <!-- image -->
                 <img class="" src="http://placehold.it/400x250/000/fff"
                      th:attr="src='/static/img/product_' + ${entry.key.id} + '.jpg'" alt="picture of the product" />
-
                 <div class="card-header">
                     <h4 class="card-title" th:text="${entry.key.name}">Product name</h4>
                 </div>
@@ -63,21 +59,15 @@
                         <p class="lead" th:text="${entry.key.stringPriceAndCurrency}"></p>
                     </div>
                     <div class="card-buttons">
-
-                        <!-- add-remove buttons-->
-                        <!-- javascript update method needed instead of magic number, links need session controller-->
-
                         <button class="change-quantity-button_plus" th:data-id="${entry.key.id}">+</button>
                         <p class="product-quantity" th:id="${entry.key.id}" th:text="${entry.value}"></p>
                         <button class="change-quantity-button_minus" th:data-id="${entry.key.id}">-</button>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="totalprice"></div>
-
 </div>
 
 <div th:replace="footer.html :: copy"></div>

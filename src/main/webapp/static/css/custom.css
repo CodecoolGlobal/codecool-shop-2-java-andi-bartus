@@ -1,6 +1,7 @@
 .glyphicon {
     margin-right:5px;
 }
+
 .thumbnail
 {
     margin-bottom: 20px;
@@ -32,10 +33,12 @@
 {
     margin-right: 10px;
 }
+
 .item.list-group-item .thumbnail
 {
     margin-bottom: 0;
 }
+
 .item.list-group-item .caption
 {
     padding: 9px 9px 0 9px;
@@ -56,10 +59,12 @@
 {
     float: left;
 }
+
 .item.list-group-item:after
 {
     clear: both;
 }
+
 .list-group-item-text
 {
     margin: 0 0 11px;
@@ -115,7 +120,6 @@ svg{
     justify-content: center;
     align-items: center;
     overflow: hidden
-
 }
 
 .fill img {
@@ -123,5 +127,4 @@ svg{
     flex-shrink: 0;
     min-width: 100%;
     min-height: 100%
-
 }

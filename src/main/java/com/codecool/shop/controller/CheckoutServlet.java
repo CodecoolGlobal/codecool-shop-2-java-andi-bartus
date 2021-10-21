@@ -1,14 +1,9 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
 import com.codecool.shop.model.Product;
-import com.codecool.shop.service.ProductService;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -22,13 +17,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-
 @WebServlet(urlPatterns = {"/checkout"})
 public class CheckoutServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
         HttpSession session = req.getSession();
         Map<Product, Integer> basket = null;
 
@@ -38,7 +31,6 @@ public class CheckoutServlet extends HttpServlet {
         if (session.getAttribute("basket") != null) {
             basket = (HashMap<Product, Integer>)session.getAttribute("basket");
         }
-
 
         //getAll needs testing
         context.setVariable("basket", basket);
