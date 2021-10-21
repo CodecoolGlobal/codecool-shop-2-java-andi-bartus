@@ -37,7 +37,7 @@ public class CategoryServlet extends HttpServlet {
 
         int categoryId = productService.findCategoryIdByName(param);
 
-        context.setVariable("category", productService.getProductCategory(categoryId));
+        context.setVariable("categoryNameCapitalised", productCategoryDataStore.getWordCapitalised(param));
         context.setVariable("products", productService.getProductsForCategory(categoryId));
         context.setVariable("totalCartCount", getCartItemCount(req));
 

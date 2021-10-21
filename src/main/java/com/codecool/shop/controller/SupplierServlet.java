@@ -37,7 +37,8 @@ public class SupplierServlet extends HttpServlet {
 
         int supplierId = productService.findSupplierIdByName(param);
 
-        context.setVariable("category", productService.getProductSupplier(supplierId));
+        context.setVariable("categoryNameCapitalised", productCategoryDataStore.getWordCapitalised(param));
+
         context.setVariable("products", productService.getProductsForSupplier(supplierId));
         context.setVariable("totalCartCount", getCartItemCount(req));
 

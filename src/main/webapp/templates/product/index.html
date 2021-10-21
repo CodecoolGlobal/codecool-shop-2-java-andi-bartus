@@ -64,7 +64,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarCategory" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" id="navbarCategory" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Categories
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -76,7 +76,7 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarSuppliers" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" id="navbarSuppliers" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Suppliers
                     </a>
 
@@ -100,8 +100,8 @@
 
 <div class="container">
     <div class="category-iter" th:each="category,categStat: ${categories}">
-        <div class="card">
-            <strong th:text="${category.getName()}">Category Title</strong>
+        <div class="card" style="font-size:50px">
+            <strong th:text="${categoryNamesCapitalised.get(categStat.index)}">Category Title</strong>
         </div>
 
         <div id="products" class="row">

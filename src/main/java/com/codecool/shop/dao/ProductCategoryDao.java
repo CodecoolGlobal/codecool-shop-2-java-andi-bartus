@@ -14,4 +14,6 @@ public interface ProductCategoryDao {
 
     List<ProductCategory> getAll();
 
+    List<String> getAllCapitalised();
+    String getWordCapitalised(String word);
 }

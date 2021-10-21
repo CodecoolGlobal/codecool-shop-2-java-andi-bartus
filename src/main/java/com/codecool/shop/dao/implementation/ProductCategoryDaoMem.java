@@ -2,10 +2,12 @@ package com.codecool.shop.dao.implementation;
 
 
 import com.codecool.shop.dao.ProductCategoryDao;
+import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ProductCategoryDaoMem implements ProductCategoryDao {
 
@@ -43,6 +45,30 @@ public class ProductCategoryDaoMem implements ProductCategoryDao {
     @Override
     public List<ProductCategory> getAll() {
         return data;
+    }
+
+    @Override
+    public List<String> getAllCapitalised(){
+        System.out.println(data.toString());
+        ArrayList<String> modifiedNames = new ArrayList<>();
+        for (ProductCategory category : data) {
+            modifiedNames.add(getWordCapitalised(category.getName()));
+        }
+        System.out.println(data.toString());
+        return modifiedNames;
+    }
+
+    @Override
+    public String getWordCapitalised(String word){
+        String modified = "";
+        if (word.length() > 0){
+            modified += word.charAt(0);
+            modified = modified.toUpperCase();
+            if (word.length() > 1){
+                modified += word.substring(1);
+            }
+        }
+        return modified;
     }
 
     @Override
