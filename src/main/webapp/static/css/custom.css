@@ -108,3 +108,20 @@ svg{
     flex-direction: row;
     flex-wrap: wrap;
 }
+
+.fill {
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden
+
+}
+
+.fill img {
+    height: 5%;
+    flex-shrink: 0;
+    min-width: 100%;
+    min-height: 100%
+
+}
