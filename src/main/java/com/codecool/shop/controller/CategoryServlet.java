@@ -33,8 +33,8 @@ public class CategoryServlet extends HttpServlet {
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        int categoryId = productCategoryDataStore.findIdByName(param);
 
+        int categoryId = productService.findCategoryIdByName(param);
 
         context.setVariable("category", productService.getProductCategory(categoryId));
         context.setVariable("products", productService.getProductsForCategory(categoryId));

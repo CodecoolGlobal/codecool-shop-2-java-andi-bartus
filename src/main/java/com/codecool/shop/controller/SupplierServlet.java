@@ -34,7 +34,7 @@ public class SupplierServlet extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
 
-        int supplierId = supplierDataStore.findIdByName(param);
+        int supplierId = productService.findSupplierIdByName(param);
 
         context.setVariable("category", productService.getProductSupplier(supplierId));
         context.setVariable("products", productService.getProductsForSupplier(supplierId));
