@@ -2,12 +2,9 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.Product;
-import com.codecool.shop.model.ProductCategory;
-import com.codecool.shop.model.Supplier;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,7 +28,6 @@ public class BasketServlet extends HttpServlet {
 
         int productId = Integer.parseInt(request.getParameter("id"));
         Product product = productDaoMem.find(productId);
-
 
         switch (servletPath) {
             case "/basket":
