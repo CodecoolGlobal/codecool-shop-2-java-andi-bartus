@@ -28,43 +28,25 @@ public class BasketServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         String servletPath = request.getServletPath();
+
         int productId = Integer.parseInt(request.getParameter("id"));
         Product product = productDaoMem.find(productId);
-        //System.out.println("first"+basket);
-        //System.out.println(productId);
-        // System.out.println(product);
-        // System.out.println(productId);
+
 
         switch (servletPath) {
             case "/basket":
+                ArrayList<ArrayList<String>> filteredData2 = makeProductList();
+                makeJsonResponse(response, filteredData2);
                 break;
+
             case "/addToBasket":
 
                 basket.put(product, basket.getOrDefault(product, 0) + 1);
                 session.setAttribute("basket", basket);
-
-                //System.out.println(basket);
-
-                ArrayList<ArrayList<String>> filteredData = new ArrayList<>();
-
-                for (Product key : basket.keySet()
-                ) {
-                    ArrayList<String> data = new ArrayList<>();
-
-                    data.add(String.valueOf(key.getId()));
-                    data.add(key.getName());
-                    data.add(key.getPrice());
-                    data.add(String.valueOf(key.getDefaultPrice()));
-                    data.add(String.valueOf(basket.get(key)));
-                    filteredData.add(data);
-                }
-
-                // System.out.println(datas);
-
+                ArrayList<ArrayList<String>> filteredData = makeProductList();
                 makeJsonResponse(response, filteredData);
-
-
                 break;
+
             case "/removeFromBasket":
                 if (basket.get(product).equals(1)) {
                     basket.remove(product);
@@ -85,6 +67,23 @@ public class BasketServlet extends HttpServlet {
         out.flush();
     }
 
+    public ArrayList<ArrayList<String>> makeProductList(){
+        ArrayList<ArrayList<String>> filteredData = new ArrayList<>();
+
+        for (Product key : basket.keySet()
+        ) {
+            ArrayList<String> data = new ArrayList<>();
+
+            data.add(String.valueOf(key.getId()));
+            data.add(key.getName());
+            data.add(key.getPrice());
+            data.add(String.valueOf(key.getDefaultPrice()));
+            data.add(String.valueOf(basket.get(key)));
+            filteredData.add(data);
+        }
+
+        return filteredData;
+    }
     public Map<Product, Integer> getBasket() {
         return basket;
     }
