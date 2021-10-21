@@ -27,6 +27,9 @@
     <!-- End of Bootstrap components -->
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+
+    <script src="/static/js/add_to_cart.js" defer></script>
+    <script src="/static/js/cart_modal.js" defer></script>
 </head>
 
 <body>
@@ -36,15 +39,15 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Your Cart</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                ...
+                Cart is empty.
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <a href="/checkout"><button type="button" class="btn btn-primary">Payment</button></a>
             </div>
         </div>
     </div>
@@ -52,11 +55,6 @@
 
 <div class="jumbotron text-center">
     <h1>CodeBootSale</h1>
-
-
-
-
-
 
 </div>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -67,11 +65,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <!-- <li class="nav-item">
-                      <a class="nav-link" href="#">Link</a>
-                  </li> -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarCategory" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" id="navbarCategory" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Categories
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -79,13 +74,11 @@
                         <li><a class="dropdown-item" href="/category?param=fashion">Fashion</a></li>
                         <li><a class="dropdown-item" href="/category?param=home">Home</a></li>
                         <li><a class="dropdown-item" href="/category?param=sport">Sport</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">SALE</a></li>
                     </ul>
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarSuppliers" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" id="navbarSuppliers" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Suppliers
                     </a>
 
@@ -93,31 +86,22 @@
                         <li><a class="dropdown-item" href="/supplier?param=student">Students</a></li>
                         <li><a class="dropdown-item" href="/supplier?param=mentor">Mentors</a></li>
                         <li><a class="dropdown-item" href="/supplier?param=codecool">CodeCool</a></li>
-                        <li><hr class="dropdown-divider"></li>
-
                     </ul>
                 </li>
-
-                <!--   <li class="nav-item">
-                       <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                   </li> -->
             </ul>
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
         </div>
-    </div>
-    <a href="/checkout">
-        <button type="button" class="btn btn-primary">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="basket">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-basket" viewBox="0 0 16 16">
                 <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1v4.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 13.5V9a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1.217L5.07 1.243a.5.5 0 0 1 .686-.172zM2 9v4.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V9H2zM1 7v1h14V7H1zm3 3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 4 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 6 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 8 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5z"></path>
             </svg>
-            Basket
+            Basket <span th:text="${totalCartCount}"></span>
         </button>
-    </a>
+    </div>
 </nav>
-
 
 <div class="container">
     <div class="card">
@@ -125,25 +109,24 @@
     </div>
 
     <div id="products" class="row">
-        <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
+        <div class="col col-sm-12 col-md-6 col-lg-4" th:each="product,iterStat : ${products}">
             <div class="card">
-                <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
+                <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${product.id} + '.jpg'" alt="" />
                 <div class="card-header">
-                    <h4 class="card-title" th:text="${prod.name}">Product name</h4>
-                    <p class="card-text" th:text="${prod.description}">Product description... </p>
+                    <h4 class="card-title" th:text="${product.name}">Product name</h4>
+                    <p class="card-text" th:text="${product.description}">Product description... </p>
                 </div>
                 <div class="card-body">
                     <div class="card-text">
-                        <p class="lead" th:text="${prod.getPrice()}"></p>
+                        <p class="lead" th:text="${product.getPrice()}"></p>
                     </div>
                     <div class="card-text">
-                        <a class="btn btn-success" href="#">Add to cart</a>
+                        <a class="btn btn-success" th:data-id="${product.getId()}">Add to cart</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 
 <div th:replace="footer.html :: copy"></div>
