@@ -11,14 +11,18 @@ public class Product extends BaseModel {
     private ProductCategory productCategory;
     private Supplier supplier;
 
-    private final String stringPriceAndCurrency;
+    private String stringPriceAndCurrency;
 
     public Product(String name, BigDecimal defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier) {
         super(name, description);
-        this.setPrice(defaultPrice, currencyString);
-        this.setSupplier(supplier);
-        this.setProductCategory(productCategory);
-        this.stringPriceAndCurrency = this.getPrice();
+        setPrice(defaultPrice, currencyString);
+        setSupplier(supplier);
+        setProductCategory(productCategory);
+        setStringPriceAndCurrency(this.getPrice());
+    }
+
+    private void setStringPriceAndCurrency(String stringPriceAndCurrency) {
+        this.stringPriceAndCurrency = stringPriceAndCurrency;
     }
 
     public String getStringPriceAndCurrency() {
