@@ -36,13 +36,14 @@ public class SupplierServlet extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         int supplierId = productService.findSupplierIdByName(param);
+        if (supplierId != -1){
+            context.setVariable("categoryNameCapitalised", productCategoryDataStore.getWordCapitalised(param));
 
-        context.setVariable("categoryNameCapitalised", productCategoryDataStore.getWordCapitalised(param));
+            context.setVariable("products", productService.getProductsForSupplier(supplierId));
+            context.setVariable("totalCartCount", getCartItemCount(req));
 
-        context.setVariable("products", productService.getProductsForSupplier(supplierId));
-        context.setVariable("totalCartCount", getCartItemCount(req));
-
-        engine.process("product/category.html", context, resp.getWriter());
+            engine.process("product/category.html", context, resp.getWriter());
+        }
     }
 
     protected int getCartItemCount(HttpServletRequest req){

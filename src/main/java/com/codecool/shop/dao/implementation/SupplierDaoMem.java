@@ -1,11 +1,11 @@
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class SupplierDaoMem implements SupplierDao {
 
@@ -46,10 +46,11 @@ public class SupplierDaoMem implements SupplierDao {
     }
 
     @Override
-    public Supplier findByName(String name) {
+    public Optional<Supplier> findByName(String name) {
         Supplier supplier = data.stream()
                 .filter(t -> t.getName().equals(name))
                 .findFirst().orElse(null);
-        return supplier;
+        assert supplier != null;
+        return Optional.of(supplier);
     }
 }

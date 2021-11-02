@@ -3,11 +3,13 @@ package com.codecool.shop.service;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.model.BaseModel;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
 import java.util.List;
+import java.util.Optional;
 
 public class ProductService {
     private ProductDao productDao;
@@ -44,7 +46,7 @@ public class ProductService {
     }
 
     public int findSupplierIdByName(String name) {
-        Supplier supplier = supplierDao.findByName(name);
-        return supplier.getId();
-    }
+        Optional<Supplier> supplier = supplierDao.findByName(name);
+        return supplier.map(BaseModel::getId).orElse(-1);
+        }
 }
