@@ -1,13 +1,17 @@
-let addToCartBttns = document.querySelectorAll(".change-quantity-button_plus");
-let removeFromCartBttns = document.querySelectorAll(".change-quantity-button_minus")
+function addEventListeners() {
+    const addToCartBttns = document.querySelectorAll(".change-quantity-button_plus");
 
-for(let button of addToCartBttns){
-    button.addEventListener("click", getData);
-}
+    const removeFromCartBttns = document.querySelectorAll(".change-quantity-button_minus")
 
-for(let button of removeFromCartBttns) {
-    button.addEventListener("click", sendRemoveRequest);
+    for (let button of addToCartBttns) {
+        button.addEventListener("click", getButtonData);
+    }
+
+    for (let button of removeFromCartBttns) {
+        button.addEventListener("click", sendRemoveRequest);
+    }
 }
+addEventListeners()
 
 function sendRemoveRequest(e) {
     const bttnData = e.currentTarget.dataset
@@ -18,19 +22,17 @@ function sendRemoveRequest(e) {
         container.parentNode.parentNode.removeChild(container.parentNode)
         console.log(container.parentElement)
     }
-    sendData(id, "/removeFromBasket", -1)
+    manageData(id, "/removeFromBasket", -1)
 }
 
-function getData(e){
-
+function getButtonData(e){
     const bttnData = e.currentTarget.dataset
     let id = bttnData.id
-
-    sendData(id, "/addToBasket", 1);
+    manageData(id, "/addToBasket", 1);
 }
 
-function sendData(id, where, value){
-    fetch(where + `?id=${id}`)
+function manageData(id, url, value){
+    fetch(url + `?id=${id}`)
         .then(response => response.json())
         .then(data => changeBasketBttn(data, id, value))
 }
