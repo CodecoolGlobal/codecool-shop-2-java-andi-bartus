@@ -90,8 +90,24 @@ public class ServiceUnitTest {
         when(productCategoryDao.find(existingCatId)).thenReturn(productCategory);
         when(productDao.getBy(productCategory)).thenReturn(testProductList);
 
-        assertEquals(testProductList, productService.getProductsForCategory(999));
+        assertEquals(testProductList, productService.getProductsForCategory(existingCatId));
     }
+
+    @Test
+    void getProductsForCategory_non_existing_cat_id_return_products() {
+        ProductDao productDao = mock(ProductDao.class);
+        ProductCategoryDao productCategoryDao = mock(ProductCategoryDao.class);
+        SupplierDao supplierDao = mock(SupplierDao.class);
+        ProductService productService = new ProductService(productDao, productCategoryDao, supplierDao);
+
+        int nonExistingCatId = 1000;
+        when(productCategoryDao.find(nonExistingCatId)).thenReturn(null);
+
+        List<Product> emptyList = new ArrayList<>();
+
+        assertEquals(emptyList, productService.getProductsForCategory(nonExistingCatId));
+    }
+
 
 
 }
