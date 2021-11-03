@@ -27,18 +27,14 @@ public class SupplierServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String param = req.getParameter("param");
 
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
-        ProductService productService = new ProductService(productDataStore,productCategoryDataStore, supplierDataStore);
+        ProductService productService = new ProductService();
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         int supplierId = productService.findSupplierIdByName(param);
 
-        context.setVariable("categoryNameCapitalised", productCategoryDataStore.getWordCapitalised(param));
-
+        context.setVariable("categoryNameCapitalised", productService.getWordCapitalised(param));
         context.setVariable("products", productService.getProductsForSupplier(supplierId));
         context.setVariable("totalCartCount", getCartItemCount(req));
 
