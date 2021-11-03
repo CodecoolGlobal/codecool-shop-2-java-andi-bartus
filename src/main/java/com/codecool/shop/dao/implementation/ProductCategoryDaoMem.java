@@ -49,12 +49,13 @@ public class ProductCategoryDaoMem implements ProductCategoryDao {
 
     @Override
     public List<String> getAllCapitalised(){
-        System.out.println(data.toString());
         ArrayList<String> modifiedNames = new ArrayList<>();
+        String categoryName;
         for (ProductCategory category : data) {
-            modifiedNames.add(getWordCapitalised(category.getName()));
+            categoryName = category.getName();
+            categoryName = getWordCapitalised(categoryName);
+            modifiedNames.add(categoryName);
         }
-        System.out.println(data.toString());
         return modifiedNames;
     }
 

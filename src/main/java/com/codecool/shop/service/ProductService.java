@@ -12,6 +12,7 @@ import com.codecool.shop.model.Supplier;
 import com.codecool.shop.config.DataSourceConfig;
 
 import java.util.List;
+import java.util.Optional;
 
 public class ProductService {
     private ProductDao productDao;
@@ -53,8 +54,8 @@ public class ProductService {
     }
 
     public int findSupplierIdByName(String name) {
-        Supplier supplier = supplierDao.findByName(name);
-        return supplier.getId();
+        Optional<Supplier> supplier = supplierDao.findByName(name);
+        return supplier.map(BaseModel::getId).orElse(-1);
     }
 
     public String getWordCapitalised(String word){
