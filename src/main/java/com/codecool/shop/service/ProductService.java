@@ -3,9 +3,7 @@ package com.codecool.shop.service;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.BaseModel;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
@@ -27,7 +25,10 @@ public class ProductService {
 
     public ProductService() {
         if (dataSourceConfig.isDataSourceSql()){
-            //sql needs implementation in this version.
+            DataSource datasource = run();
+            this.productDao = new ProductJdbc(datasource);
+            this.productCategoryDao = new ProductCategoryJdbc(datasource);
+            this.supplierDao = new SupplierJdbc(datasource);
         }else{
             this.productDao = ProductDaoMem.getInstance();
             this.productCategoryDao = ProductCategoryDaoMem.getInstance();
@@ -59,7 +60,7 @@ public class ProductService {
     }
 
     public int findSupplierIdByName(String name) {
-        Optional<Supplier> supplier = supplierDao.findByName(name);
+        Optional<Supplier> supplier = Optional.ofNullable(supplierDao.findByName(name));
         return supplier.map(BaseModel::getId).orElse(-1);
     }
 
@@ -82,21 +83,33 @@ public class ProductService {
     public Product getProductById(int id){
         return productDao.find(id);
     }
+
+    public void addProduct(Product product){
+        productDao.add(product);
     }
 
-    public void run() {
+    public void addProductCategory(ProductCategory category){
+        productCategoryDao.add(category);
+    }
+
+    public void addSupplier(Supplier supplier){
+        supplierDao.add(supplier);
+    }
+
+
+    public DataSource run() {
         try {
-            connect();
+            return connect();
         } catch (SQLException throwables) {
             System.err.println("Could not connect to the database.");
-            return;
+            return null;
         }
     }
 
 
     private DataSource connect() throws SQLException {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
-        dataSource.setDatabaseName("books2");
+        dataSource.setDatabaseName("codecoolshop");
         dataSource.setUser("andi");
         dataSource.setPassword("code");
         System.out.println("Trying to connect...");
@@ -105,5 +118,6 @@ public class ProductService {
 
         return dataSource;
     }
+
 
 }

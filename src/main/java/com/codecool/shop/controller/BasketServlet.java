@@ -43,6 +43,7 @@ public class BasketServlet extends HttpServlet {
                 break;
 
             case "/removeFromBasket":
+
                 if (basket.get(product)<2) {
                     basket.remove(product);
                 } else {
