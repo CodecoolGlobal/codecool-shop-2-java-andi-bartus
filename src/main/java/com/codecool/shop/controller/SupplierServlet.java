@@ -38,8 +38,7 @@ public class SupplierServlet extends HttpServlet {
         context.setVariable("products", productService.getProductsForSupplier(supplierId));
         context.setVariable("totalCartCount", getCartItemCount(req));
 
-            engine.process("product/category.html", context, resp.getWriter());
-        }
+        engine.process("product/category.html", context, resp.getWriter());
     }
 
     protected int getCartItemCount(HttpServletRequest req){
