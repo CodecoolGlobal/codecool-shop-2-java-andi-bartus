@@ -4,6 +4,7 @@ import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.ProductCategory;
+import com.codecool.shop.model.Supplier;
 import com.codecool.shop.service.ProductService;
 import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.*;
@@ -18,10 +19,10 @@ public class ServiceUnitTest {
         ProductCategory productCategory = new ProductCategory("testName","testDepartment" ,"testDescription");
         ProductService productService = new ProductService(productDao, productCategoryDao, supplierDao);
 
-        int categoryId = 999;
-        when(productCategoryDao.find(categoryId)).thenReturn(productCategory);
+        int existingCategoryId = 999;
+        when(productCategoryDao.find(existingCategoryId)).thenReturn(productCategory);
 
-        assertEquals(productCategory, productService.getProductCategory(categoryId));
+        assertEquals(productCategory, productService.getProductCategory(existingCategoryId));
     }
 
     @Test
@@ -35,5 +36,20 @@ public class ServiceUnitTest {
         when(productCategoryDao.find(nonExistingCategoryId)).thenReturn(null);
 
         assertNull(productService.getProductCategory(nonExistingCategoryId));
+    }
+
+    @Test
+    void getProductSupplier_existing_supplier_id_return_supplier() {
+        ProductDao productDao = mock(ProductDao.class);
+        ProductCategoryDao productCategoryDao = mock(ProductCategoryDao.class);
+        SupplierDao supplierDao = mock(SupplierDao.class);
+        ProductService productService = new ProductService(productDao, productCategoryDao, supplierDao);
+
+        Supplier supplier = new Supplier("testSupplier", "testDescription");
+
+        int existingSupplierId = 999;
+        when(supplierDao.find(existingSupplierId)).thenReturn(supplier);
+
+        assertEquals(supplier, productService.getProductSupplier(existingSupplierId));
     }
 }
