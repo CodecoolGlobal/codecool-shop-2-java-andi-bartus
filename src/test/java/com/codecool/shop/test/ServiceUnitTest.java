@@ -52,4 +52,20 @@ public class ServiceUnitTest {
 
         assertEquals(supplier, productService.getProductSupplier(existingSupplierId));
     }
+
+    @Test
+    void getProductSupplier_non_existing_supplier_return_null() {
+        ProductDao productDao = mock(ProductDao.class);
+        ProductCategoryDao productCategoryDao = mock(ProductCategoryDao.class);
+        SupplierDao supplierDao = mock(SupplierDao.class);
+        ProductService productService = new ProductService(productDao, productCategoryDao, supplierDao);
+
+        int nonExistingSupplierId = 1000;
+        when(supplierDao.find(nonExistingSupplierId)).thenReturn(null);
+
+        assertNull(productService.getProductSupplier(nonExistingSupplierId));
+
+    }
+
+
 }
