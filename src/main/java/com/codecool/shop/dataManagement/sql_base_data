@@ -45,44 +45,6 @@ CREATE TABLE product(
 );
 
 
----
---- insert data
----
-INSERT INTO category
-    (ID, NAME, DEPARTMENT, DESCRIPTION)
-VALUES
-    (nextval('category_id_seq'),'electronics', 'Hardware', 'A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.'),
-    (nextval('category_id_seq'),'home', 'Hardware', ''),
-    (nextval('category_id_seq'),'fashion', 'Hardware', 'A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.'),
-    (nextval('category_id_seq'),'sport', 'Hardware', 'A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.');
-
-
-INSERT INTO supplier
-    (ID, NAME, DESCRIPTION)
-VALUES
-    (nextval('supplier_id_seq'), 'student', 'Random stuffs from students'),
-    (nextval('supplier_id_seq'), 'mentor', 'Random stuffs from mentors'),
-    (nextval('supplier_id_seq'), 'codecool', 'Random stuff from CodeCool');
-
-
-INSERT INTO product
-    (id, name, "value", currency, description, category_id, supplier_id)
-VALUES
-    (nextval('product_id_seq'), 'Pilgrim Destination', 49.9, 'USD', 'Visited by people time to time', 2, 3),
-    (nextval('product_id_seq'), 'Peti`s Backpack in warm autumn color', 479, 'USD', 'Be like Peti,  with this mustard yellow backpack.', 3, 1),
-    (nextval('product_id_seq'), 'Krici`s Laptop', 89, 'USD', 'Krici`s laptop in not such a bad condition', 1, 1),
-    (nextval('product_id_seq'), 'Motivation Poster', 10, 'USD', 'Keep distance keep smiling', 2, 3),
-    (nextval('product_id_seq'), 'Dinner-set', 130, 'USD', 'Welcome your friend with this eclectic set', 2, 3),
-    (nextval('product_id_seq'), 'ArtDeco Sculpture-set 3pcs', 150, 'USD', 'Pure art', 2, 3),
-    (nextval('product_id_seq'), 'Road Racer', 1000, 'USD', 'Healthy is the new sexy', 4, 3),
-    (nextval('product_id_seq'), 'Mug Top with Rubber Ring', 12, 'USD', 'This is it', 2, 3),
-    (nextval('product_id_seq'), 'Black Sabbath Poster for Collectors', 2000, 'USD', 'Metal for life', 2, 3),
-    (nextval('product_id_seq'), 'The Fountain', 20000, 'USD', 'Fight for it', 1, 2),
-    (nextval('product_id_seq'), 'Two Wheels Vehicle', 30, 'USD', 'We dont`t know who owns this', 4, 2),
-    (nextval('product_id_seq'), 'Money Pit', 10, 'USD', 'I had money once', 1, 3),
-    (nextval('product_id_seq'), 'Always Taken Armchair', 150, 'USD', 'With Bonus sitting mentors', 3, 2),
-    (nextval('product_id_seq'), 'Game Machine', 140, 'USD', 'For game or just for pushing the Buttons', 4, 1);
-
 
 ---
 --- add constraints
