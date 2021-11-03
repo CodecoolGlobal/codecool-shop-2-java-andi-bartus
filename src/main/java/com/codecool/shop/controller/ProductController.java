@@ -7,6 +7,7 @@ import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.service.ProductService;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -24,15 +25,14 @@ public class ProductController extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+        ProductService productService = new ProductService();
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
-        context.setVariable("categories", productCategoryDataStore.getAll());
-        context.setVariable("categoryNamesCapitalised", productCategoryDataStore.getAllCapitalised());
-        context.setVariable("productMatrix", getProductsOfCategories(productDataStore.getAll(), productCategoryDataStore.getAll()));
+        context.setVariable("categories", productService.getAllProductCategories());
+        context.setVariable("categoryNamesCapitalised", productService.getAllCapitalised());
+        context.setVariable("productMatrix", getProductsOfCategories(productService.getAllProducts(), productService.getAllProductCategories()));
         context.setVariable("totalCartCount", getCartItemCount(req));
 
         engine.process("product/index.html", context, resp.getWriter());

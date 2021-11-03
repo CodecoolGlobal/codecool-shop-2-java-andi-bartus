@@ -2,6 +2,7 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.Product;
+import com.codecool.shop.service.ProductService;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 
@@ -19,14 +20,14 @@ import java.util.Map;
 @WebServlet(name = "BasketServlet", urlPatterns = {"/basket", "/addToBasket", "/removeFromBasket"})
 public class BasketServlet extends HttpServlet {
     private Map<Product, Integer> basket = new HashMap<>();
-    private final ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
+    private final ProductService productService = new ProductService();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         String servletPath = request.getServletPath();
 
         int productId = Integer.parseInt(request.getParameter("id"));
-        Product product = productDaoMem.find(productId);
+        Product product = productService.getProductById(productId);
 
         switch (servletPath) {
             case "/basket":
