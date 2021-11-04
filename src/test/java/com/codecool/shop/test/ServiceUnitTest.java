@@ -94,7 +94,7 @@ public class ServiceUnitTest {
     }
 
     @Test
-    void getProductsForCategory_non_existing_cat_id_return_products() {
+    void getProductsForCategory_non_existing_cat_id_return_empty_list() {
         ProductDao productDao = mock(ProductDao.class);
         ProductCategoryDao productCategoryDao = mock(ProductCategoryDao.class);
         SupplierDao supplierDao = mock(SupplierDao.class);
@@ -108,6 +108,24 @@ public class ServiceUnitTest {
         assertEquals(emptyList, productService.getProductsForCategory(nonExistingCatId));
     }
 
+    @Test
+    void getProductsForSupplier_existing_supplier_id_return_products() {
+        ProductDao productDao = mock(ProductDao.class);
+        ProductCategoryDao productCategoryDao = mock(ProductCategoryDao.class);
+        SupplierDao supplierDao = mock(SupplierDao.class);
+        ProductService productService = new ProductService(productDao, productCategoryDao, supplierDao);
 
+        ProductCategory productCategory = new ProductCategory("testName", "testDepartment", "testDescription");
+        Supplier supplier = new Supplier("testName", "testDescription");
+        Product testProduct = new Product("testProductName", new BigDecimal(999), "USD", "testDescription", productCategory, supplier);
 
+        List<Product> testProductList = new ArrayList<>();
+        testProductList.add(testProduct);
+
+        int existingSupplierId = 999;
+        when(supplierDao.find(existingSupplierId)).thenReturn(supplier);
+        when(productDao.getBy(supplier)).thenReturn(testProductList);
+
+        assertEquals(testProductList, productService.getProductsForSupplier(existingSupplierId));
+    }
 }
