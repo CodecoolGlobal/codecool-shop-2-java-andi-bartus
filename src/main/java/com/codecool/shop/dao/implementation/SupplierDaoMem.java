@@ -41,6 +41,11 @@ public class SupplierDaoMem implements SupplierDao {
     }
 
     @Override
+    public void removeAllSupplier() {
+
+    }
+
+    @Override
     public List<Supplier> getAll() {
         return data;
     }

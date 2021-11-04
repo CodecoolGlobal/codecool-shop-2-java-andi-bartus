@@ -27,6 +27,8 @@ public class ProductController extends HttpServlet{
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ProductService productService = new ProductService();
 
+
+
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
@@ -37,6 +39,7 @@ public class ProductController extends HttpServlet{
         context.setVariable("totalCartCount", getCartItemCount(req));
 
         engine.process("product/index.html", context, resp.getWriter());
+
     }
 
     protected int getCartItemCount(HttpServletRequest req){

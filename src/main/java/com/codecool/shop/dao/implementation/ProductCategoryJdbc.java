@@ -62,6 +62,21 @@ public class ProductCategoryJdbc implements ProductCategoryDao {
     }
 
     @Override
+    public void removeAll() {
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "DELETE FROM category";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.executeUpdate();
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while deleting products", e);
+
+        }
+
+    }
+
+    @Override
     public ProductCategory findByName(String name) {
         try (Connection conn = dataSource.getConnection()) {
             String sql = "SELECT id, name, department, description FROM category WHERE name = ?";

@@ -75,6 +75,21 @@ public class ProductJdbc implements ProductDao {
 
     }
 
+    public void removeAll(){
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "TRUNCATE product RESTART IDENTITY";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.executeUpdate();
+
+            }
+        catch (SQLException e) {
+            throw new RuntimeException("Error while deleting products", e);
+
+        }
+
+
+    }
+
     @Override
     public List<Product> getAll() {
         try (Connection conn = dataSource.getConnection()) {
@@ -101,7 +116,7 @@ public class ProductJdbc implements ProductDao {
             String sql = "SELECT id, name, value, currency, description, category_id, supplier_id FROM product WHERE supplier_id = ?";
             PreparedStatement st = conn.prepareStatement(sql);
             st.setInt(1, supplier.getId());
-            ResultSet rs = conn.createStatement().executeQuery(sql);
+            ResultSet rs = st.executeQuery();
 
             List<Product> result = new ArrayList<>();
             while (rs.next()) {
@@ -122,15 +137,17 @@ public class ProductJdbc implements ProductDao {
     @Override
     public List<Product> getBy(ProductCategory productCategory) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "SELECT id, name, value, currency, description, category_id, supplier_id FROM product WHERE category_id = $1";
+            String sql = "SELECT id, name, value, currency, description, category_id, supplier_id FROM product WHERE category_id = ?";
             PreparedStatement st = conn.prepareStatement(sql);
             System.out.println(productCategory.getId());
-            st.setInt(1, productCategory.getId());
+            int id = productCategory.getId();
+            st.setInt(1, id);
 
-            ResultSet rs = conn.createStatement().executeQuery(sql);
-            System.out.println("kdewdjjedmjenmjenfjenfcjenfc");
+            ResultSet rs = st.executeQuery();
+
             List<Product> result = new ArrayList<>();
             while (rs.next()) {
+
                 ProductCategory category = categoryDao.find(productCategory.getId());
                 Supplier resSupplier = supplierDao.find(rs.getInt(7));
 
@@ -140,7 +157,7 @@ public class ProductJdbc implements ProductDao {
             }
             return result;
         } catch (SQLException e) {
-            throw new RuntimeException("Error while reading all authors", e);
+            throw new RuntimeException("Error while geting by product catehory id", e);
         }
     }
 }

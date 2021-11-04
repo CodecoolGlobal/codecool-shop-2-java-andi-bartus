@@ -59,6 +59,20 @@ public class SupplierJdbc implements SupplierDao {
     }
 
     @Override
+    public void removeAllSupplier() {
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "DELETE FROM supplier";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while deleting products", e);
+
+        }
+
+    }
+
+    @Override
     public Supplier findByName(String name) {
         try (Connection conn = dataSource.getConnection()) {
             String sql = "SELECT id, name, description FROM supplier WHERE name = ?";

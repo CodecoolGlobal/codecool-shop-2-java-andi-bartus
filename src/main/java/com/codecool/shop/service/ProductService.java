@@ -76,6 +76,13 @@ public class ProductService {
         return productCategoryDao.getAll();
     }
 
+
+
+    public void clearDatabase(){
+        productDao.removeAll();
+        productCategoryDao.removeAll();
+        supplierDao.removeAllSupplier();
+    }
     public List<Product> getAllProducts(){
         return productDao.getAll();
     }
