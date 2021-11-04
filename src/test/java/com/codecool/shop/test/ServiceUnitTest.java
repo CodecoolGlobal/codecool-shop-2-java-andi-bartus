@@ -142,4 +142,20 @@ public class ServiceUnitTest {
 
         assertEquals(emptyList, productService.getProductsForSupplier(nonExistingSupplierId));
     }
+
+    @Test
+    void findCategoryIdByName_existing_id_return_category_id() {
+        ProductDao productDao = mock(ProductDao.class);
+        ProductCategoryDao productCategoryDao = mock(ProductCategoryDao.class);
+        SupplierDao supplierDao = mock(SupplierDao.class);
+        ProductService productService = new ProductService(productDao, productCategoryDao, supplierDao);
+        ProductCategory testProductCategory = mock(ProductCategory.class);
+
+        String existingTestName = "testName";
+        int testId = 999;
+        when(productCategoryDao.findByName(existingTestName)).thenReturn(testProductCategory);
+        when(testProductCategory.getId()).thenReturn(testId);
+
+        assertEquals(testId, productService.findCategoryIdByName(existingTestName));
+    }
 }
