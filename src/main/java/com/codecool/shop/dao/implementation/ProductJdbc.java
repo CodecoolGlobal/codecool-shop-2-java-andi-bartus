@@ -55,7 +55,7 @@ public class ProductJdbc implements ProductDao {
             PreparedStatement st = conn.prepareStatement(sql);
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
-            if (!rs.next()) { // first row was not found == no data was returned by the query
+            if (!rs.next()) {
                 return null;
             }
 
@@ -106,7 +106,7 @@ public class ProductJdbc implements ProductDao {
             }
             return result;
         } catch (SQLException e) {
-            throw new RuntimeException("Error while reading all authors", e);
+            throw new RuntimeException("Error while get all products", e);
         }
     }
 
@@ -129,7 +129,7 @@ public class ProductJdbc implements ProductDao {
             }
             return result;
         } catch (SQLException e) {
-            throw new RuntimeException("Error while reading all authors", e);
+            throw new RuntimeException("Error while get product by supplier", e);
         }
 
     }

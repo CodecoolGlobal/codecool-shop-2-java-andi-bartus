@@ -6,7 +6,6 @@ import com.codecool.shop.model.Supplier;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import javax.sql.DataSource;
 
 public class SupplierJdbc implements SupplierDao {
@@ -25,7 +24,7 @@ public class SupplierJdbc implements SupplierDao {
             st.setString(2, suppliers.getDescription());
             st.executeUpdate();
             ResultSet rs = st.getGeneratedKeys();
-            rs.next(); // Read next returned value - in this case the first one. See ResultSet docs for more explaination
+            rs.next();
             suppliers.setId(rs.getInt(1));
 
         } catch (SQLException throwables) {
@@ -41,7 +40,7 @@ public class SupplierJdbc implements SupplierDao {
             PreparedStatement st = conn.prepareStatement(sql);
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
-            if (!rs.next()) { // first row was not found == no data was returned by the query
+            if (!rs.next()) {
                 return null;
             }
 
@@ -59,14 +58,15 @@ public class SupplierJdbc implements SupplierDao {
     }
 
     @Override
-    public void removeAllSupplier() {
+    public void removeAll() {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "DELETE FROM supplier";
+            String sql = "TRUNCATE supplier RESTART IDENTITY";
             PreparedStatement st = conn.prepareStatement(sql);
             st.executeUpdate();
 
-        } catch (SQLException e) {
-            throw new RuntimeException("Error while deleting products", e);
+        }
+        catch (SQLException e) {
+            throw new RuntimeException("Error while deleting suppliers", e);
 
         }
 
@@ -105,7 +105,7 @@ public class SupplierJdbc implements SupplierDao {
             }
             return result;
         } catch (SQLException e) {
-            throw new RuntimeException("Error while reading all authors", e);
+            throw new RuntimeException("Error while get all suppliers", e);
         }
     }
 }

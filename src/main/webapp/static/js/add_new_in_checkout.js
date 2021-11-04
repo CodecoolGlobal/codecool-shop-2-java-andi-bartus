@@ -1,7 +1,7 @@
 function addEventListeners() {
-    const addToCartBttns = document.querySelectorAll(".change-quantity-button_plus");
+    let addToCartBttns = document.querySelectorAll(".change-quantity-button_plus");
 
-    const removeFromCartBttns = document.querySelectorAll(".change-quantity-button_minus")
+    let removeFromCartBttns = document.querySelectorAll(".change-quantity-button_minus")
 
     for (let button of addToCartBttns) {
         button.addEventListener("click", getButtonData);
