@@ -41,16 +41,21 @@ public class SupplierDaoMem implements SupplierDao {
     }
 
     @Override
+    public void removeAllSupplier() {
+
+    }
+
+    @Override
     public List<Supplier> getAll() {
         return data;
     }
 
     @Override
-    public Optional<Supplier> findByName(String name) {
+    public Supplier findByName(String name) {
         Supplier supplier = data.stream()
                 .filter(t -> t.getName().equals(name))
                 .findFirst().orElse(null);
         assert supplier != null;
-        return Optional.of(supplier);
+        return null;
     }
 }
