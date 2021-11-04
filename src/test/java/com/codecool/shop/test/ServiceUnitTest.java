@@ -178,4 +178,18 @@ public class ServiceUnitTest {
 
 
     }
+
+    @Test
+    void findSupplierIdByName_non_existing_name_return_minus_one() {
+        ProductDao productDao = mock(ProductDao.class);
+        ProductCategoryDao productCategoryDao = mock(ProductCategoryDao.class);
+        SupplierDao supplierDao = mock(SupplierDao.class);
+        ProductService productService = new ProductService(productDao, productCategoryDao, supplierDao);
+
+        String nonExistingTestName = "testName";
+
+        assertEquals(-1, productService.findSupplierIdByName(nonExistingTestName));
+    }
+
+
 }
