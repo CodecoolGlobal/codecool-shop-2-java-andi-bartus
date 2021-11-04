@@ -1,8 +1,11 @@
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.ProductCategoryDao;
+import com.codecool.shop.model.BaseModel;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,6 +14,8 @@ import javax.sql.DataSource;
 
 public class ProductCategoryJdbc implements ProductCategoryDao {
     private final DataSource dataSource;
+    private static final Logger logger = LoggerFactory.getLogger(BaseModel.class);
+
 
     public ProductCategoryJdbc(DataSource datasource) {
         this.dataSource = datasource;
@@ -30,8 +35,9 @@ public class ProductCategoryJdbc implements ProductCategoryDao {
             rs.next(); // Read next returned value - in this case the first one. See ResultSet docs for more explaination
             category.setId(rs.getInt(1));
 
-        } catch (SQLException throwables) {
-            throw new RuntimeException("Error while adding new Category.", throwables);
+        } catch (SQLException e) {
+            logger.error("Error while adding new Category. Error: %s", e);
+            throw new RuntimeException("Error while adding new Category.", e);
         }
 
     }
@@ -70,6 +76,7 @@ public class ProductCategoryJdbc implements ProductCategoryDao {
 
 
         } catch (SQLException e) {
+            logger.error("Error while deleting products. Error: %s", e);
             throw new RuntimeException("Error while deleting products", e);
 
         }
@@ -90,6 +97,7 @@ public class ProductCategoryJdbc implements ProductCategoryDao {
             category.setId(rs.getInt(1));
             return category;
         } catch (SQLException e) {
+            logger.error("Error while while trying to find the product category by name. Error: %s", e);
             throw new RuntimeException(e);
         }
     }
@@ -107,7 +115,9 @@ public class ProductCategoryJdbc implements ProductCategoryDao {
             }
             return result;
         } catch (SQLException e) {
+            logger.error("Error while reading all authors. Error: %s", e);
             throw new RuntimeException("Error while reading all authors", e);
+
         }
 
     }
