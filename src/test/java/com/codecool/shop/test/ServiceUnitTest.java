@@ -172,7 +172,7 @@ public class ServiceUnitTest {
         Supplier supplier = new Supplier(existingTestName, testDescription);
         supplier.setId(0);
 
-        when(supplierDao.findByName(existingTestName)).thenReturn(Optional.of(supplier));
+        when(supplierDao.findByName(existingTestName)).thenReturn(supplier);
 
         assertEquals(0, productService.findSupplierIdByName(existingTestName));
 
