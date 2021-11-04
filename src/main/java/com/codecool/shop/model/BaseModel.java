@@ -1,5 +1,8 @@
 package com.codecool.shop.model;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.lang.reflect.Field;
 
 public class BaseModel {
@@ -7,6 +10,7 @@ public class BaseModel {
     protected int id;
     protected String name;
     protected String description;
+    private static final Logger logger = LoggerFactory.getLogger(BaseModel.class);
 
     public BaseModel(String name) {
         this.name = name;
@@ -52,7 +56,9 @@ public class BaseModel {
                 if (value != null) {
                     sb.append(field.getName() + ":" + value + ",");
                 }
-            } catch (IllegalAccessException e) {}
+            } catch (IllegalAccessException e) {
+                logger.error("Failed toString method: %s", e);
+            }
         }
         return sb.toString();
     }
