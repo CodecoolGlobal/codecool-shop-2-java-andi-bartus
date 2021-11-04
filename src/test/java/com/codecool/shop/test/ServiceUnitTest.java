@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -157,5 +158,24 @@ public class ServiceUnitTest {
         when(testProductCategory.getId()).thenReturn(testId);
 
         assertEquals(testId, productService.findCategoryIdByName(existingTestName));
+    }
+
+    @Test
+    void findSupplierIdByName_existing_name_return_supplier_id() {
+        ProductDao productDao = mock(ProductDao.class);
+        ProductCategoryDao productCategoryDao = mock(ProductCategoryDao.class);
+        SupplierDao supplierDao = mock(SupplierDao.class);
+        ProductService productService = new ProductService(productDao, productCategoryDao, supplierDao);
+
+        String existingTestName = "testName";
+        String testDescription = "testDesc";
+        Supplier supplier = new Supplier(existingTestName, testDescription);
+        supplier.setId(0);
+
+        when(supplierDao.findByName(existingTestName)).thenReturn(Optional.of(supplier));
+
+        assertEquals(0, productService.findSupplierIdByName(existingTestName));
+
+
     }
 }
