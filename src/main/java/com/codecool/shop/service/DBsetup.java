@@ -19,9 +19,9 @@ public class DBsetup {
 
     private DataSource connect() throws SQLException {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
-        dataSource.setDatabaseName("codecoolshop");
-        dataSource.setUser("andi");
-        dataSource.setPassword("code");
+        dataSource.setDatabaseName(System.getenv("db_name"));
+        dataSource.setUser(System.getenv("username"));
+        dataSource.setPassword(System.getenv("password"));
         System.out.println("Trying to connect...");
         dataSource.getConnection().close();
         System.out.println("Connection OK");
