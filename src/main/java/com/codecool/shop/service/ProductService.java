@@ -25,7 +25,8 @@ public class ProductService {
 
     public ProductService() {
         if (dataSourceConfig.isDataSourceSql()){
-            DataSource datasource = run();
+            DBsetup setup = new DBsetup();
+            DataSource datasource = setup.run();
             this.productDao = new ProductJdbc(datasource);
             this.productCategoryDao = new ProductCategoryJdbc(datasource);
             this.supplierDao = new SupplierJdbc(datasource);
@@ -111,27 +112,6 @@ public class ProductService {
     }
 
 
-    public DataSource run() {
-        try {
-            return connect();
-        } catch (SQLException throwables) {
-            System.err.println("Could not connect to the database.");
-            return null;
-        }
-    }
-
-
-    private DataSource connect() throws SQLException {
-        PGSimpleDataSource dataSource = new PGSimpleDataSource();
-        dataSource.setDatabaseName("codecoolshop");
-        dataSource.setUser("andi");
-        dataSource.setPassword("code");
-        System.out.println("Trying to connect...");
-        dataSource.getConnection().close();
-        System.out.println("Connection OK");
-
-        return dataSource;
-    }
 
 
 }
