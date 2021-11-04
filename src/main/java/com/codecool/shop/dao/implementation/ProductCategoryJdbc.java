@@ -2,8 +2,6 @@ package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.model.ProductCategory;
-import com.codecool.shop.model.Supplier;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +25,7 @@ public class ProductCategoryJdbc implements ProductCategoryDao {
 
             st.executeUpdate();
             ResultSet rs = st.getGeneratedKeys();
-            rs.next(); // Read next returned value - in this case the first one. See ResultSet docs for more explaination
+            rs.next();
             category.setId(rs.getInt(1));
 
         } catch (SQLException throwables) {
@@ -43,12 +41,12 @@ public class ProductCategoryJdbc implements ProductCategoryDao {
             PreparedStatement st = conn.prepareStatement(sql);
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
-            if (!rs.next()) { // first row was not found == no data was returned by the query
+            if (!rs.next()) {
                 return null;
             }
 
             ProductCategory productCategory = new ProductCategory(rs.getString(1), rs.getString(2), rs.getString(3));
-            productCategory.setId(id); // we already knew author id, so we do not read it from database.
+            productCategory.setId(id);
             return productCategory;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -64,13 +62,13 @@ public class ProductCategoryJdbc implements ProductCategoryDao {
     @Override
     public void removeAll() {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "DELETE FROM category";
+            String sql = "TRUNCATE category RESTART IDENTITY";
             PreparedStatement st = conn.prepareStatement(sql);
             st.executeUpdate();
 
-
-        } catch (SQLException e) {
-            throw new RuntimeException("Error while deleting products", e);
+        }
+        catch (SQLException e) {
+            throw new RuntimeException("Error while deleting categories", e);
 
         }
 
@@ -107,7 +105,7 @@ public class ProductCategoryJdbc implements ProductCategoryDao {
             }
             return result;
         } catch (SQLException e) {
-            throw new RuntimeException("Error while reading all authors", e);
+            throw new RuntimeException("Error while reading all category", e);
         }
 
     }

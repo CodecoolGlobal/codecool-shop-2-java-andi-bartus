@@ -9,12 +9,10 @@ import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 import com.codecool.shop.config.DataSourceConfig;
-
 import javax.sql.DataSource;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
-import org.postgresql.ds.PGSimpleDataSource;
+
 
 
 public class ProductService {
@@ -85,12 +83,12 @@ public class ProductService {
     }
 
 
-
     public void clearDatabase(){
         productDao.removeAll();
         productCategoryDao.removeAll();
-        supplierDao.removeAllSupplier();
+        supplierDao.removeAll();
     }
+
     public List<Product> getAllProducts(){
         return productDao.getAll();
     }

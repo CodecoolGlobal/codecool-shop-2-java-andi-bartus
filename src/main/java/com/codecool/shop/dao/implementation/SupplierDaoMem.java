@@ -5,15 +5,13 @@ import com.codecool.shop.model.Supplier;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 
 public class SupplierDaoMem implements SupplierDao {
 
     private List<Supplier> data = new ArrayList<>();
     private static SupplierDaoMem instance = null;
 
-    /* A private Constructor prevents any other class from instantiating.
-     */
     private SupplierDaoMem() {
     }
 
@@ -41,7 +39,7 @@ public class SupplierDaoMem implements SupplierDao {
     }
 
     @Override
-    public void removeAllSupplier() {
+    public void removeAll() {
 
     }
 
